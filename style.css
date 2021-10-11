@@ -98,7 +98,32 @@ tr.mouseover.selected{
   background-color: #e08fa3;
 }
 
-/* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */  
+#tooltip {
+    position: absolute;
+    visibility: hidden;
+    background-color: white;
+    font-size: .7rem;
+    border-radius: 5px;
+    padding: .3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#X {
+    padding: .3rem;
+}
+
+#Y {
+    padding: .3rem;
+}
+
+.bar {
+    transition: .2s all;
+}
+
+/* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */
 #forkongithub a{
 	background:#00F;
 	color:#fff;
