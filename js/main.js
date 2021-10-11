@@ -32,7 +32,7 @@ function update(Variables) {
     //sorting the data
     if (Variables == 'ascending') {
       data.sort(function(b, a) {
-        return a.Y - b.Y; });
+        return  b.Y - a.Y; });
       } else if (Variables == 'alphabet') {
         data.sort(function(a, b){
           if(a.X < b.X) { return -1; }
