@@ -111,6 +111,19 @@ tr.mouseover.selected{
     text-align: center;
 }
 
+#tooltip2 {
+    position: absolute;
+    visibility: hidden;
+    background-color: white;
+    font-size: .7rem;
+    border-radius: 5px;
+    padding: .3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
 #X {
     padding: .3rem;
 }
@@ -119,7 +132,23 @@ tr.mouseover.selected{
     padding: .3rem;
 }
 
+#Country {
+    padding: .3rem;
+}
+
+#Cases {
+    padding: .3rem;
+}
+
+#Deaths {
+    padding: .3rem;
+}
+
 .bar {
+    transition: .2s all;
+}
+
+.bar2 {
     transition: .2s all;
 }
 
