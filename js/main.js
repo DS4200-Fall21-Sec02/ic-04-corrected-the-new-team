@@ -33,6 +33,14 @@ let svg2 = d3.select('#d3-container')
 .style('border', 'solid')
 .attr('viewBox', [-70, -10, width + margin.left + margin.right, height + margin.top + margin.bottom].join(' '))
 
+let svg3 = d3.select('#d3-container')
+.append('svg')
+.attr('preserveAspectRatio', 'xMidYMid meet') // this will scale your visualization according to the size of its parent element and the page.
+.attr('width', '60%') // this is now required by Chrome to ensure the SVG shows up at all
+.style('background-color', 'white')
+.style('border', 'solid')
+.attr('viewBox', [-70, -10, width + margin.left + margin.right, height + margin.top + margin.bottom].join(' '))
+
 
 //updates the charts
 function update(Variables) {
@@ -96,7 +104,7 @@ function update(Variables) {
         })
         .on('mousemove', function (e, d) {
           tooltip
-          .style('top', event.pageY - 10 + 'px')
+          .style('top', event.pageY - 100 + 'px')
           .style('left', event.pageX + 10 + 'px');
           tooltip_name.text(d.X);
           tooltip_pop.text(`Y: ${d.Y}`);
@@ -127,7 +135,7 @@ function update(Variables) {
     };
 
     //initiating the graph
-    update('alphabet')
+    update('alphabet');
 
     d3.csv("data/covid.csv").then ( function(data) {
       const subgroups = data.columns.slice(1,3)
@@ -192,13 +200,11 @@ function update(Variables) {
         tooltip2.style('visibility', 'visible');
       })
       .on('mousemove', function (e, d) {
-        tooltip2
-        .style('top', event.pageY - 10 + 'px')
-        .style('left', event.pageX + 10 + 'px');
+        const [x, y] = d3.pointer(e);
+        tooltip2.style("left", (x) + 50 + "px")
+        .style("top", (y) - 800 + "px");
         tooltip_name2.text(d3.select(this.parentNode).datum().Country);
-        console.log(d3.select(this.parentNode).datum().Country)
         tooltip_pop1.text(`Cases: ${d3.select(this.parentNode).datum().Cases}`);
-        console.log(d3.select(this.parentNode).datum().Cases)
         tooltip_pop2.text(`Deaths: ${d3.select(this.parentNode).datum().Deaths}`);
       })
       .on('mouseout', function () {
@@ -222,4 +228,49 @@ function update(Variables) {
       .attr("dy", "-2.8em")
       .attr("transform", "rotate(-90)")
       .text("Covid cases and deaths");
+    })
+
+    d3.csv("data/covid.csv").then ( function(data) {
+
+      // Adding the X axis
+      const x = d3.scaleLinear()
+      .domain([0, 800])
+      .range([ 0, width])
+      svg3.append("g")
+      .attr("transform", `translate(0, ${height})`)
+      .call(d3.axisBottom(x));
+
+      // Adding the Y axis
+      const y = d3.scaleLinear()
+      .domain([0, 45000])
+      .range([ height, 0]);
+      svg3.append("g")
+      .call(d3.axisLeft(y));
+
+      svg3.append('g')
+      .selectAll("dot")
+      .data(data)
+      .join("circle")
+        .attr("cx", function (d) { return x(d.Deaths); } )
+        .attr("cy", function (d) { return y(d.Cases); } )
+        .attr("r", 3)
+        .style("fill", "#000000");
+
+      //adding the x label
+      svg3.append("text")
+      .attr("class", "x label")
+      .attr("text-anchor", "end")
+      .attr("x", width - 150)
+      .attr("y", height + 40)
+      .text("Covid Deaths");
+
+      //adding the y label
+      svg3.append("text")
+      .attr("class", "y label")
+      .attr("text-anchor", "end")
+      .attr("y", 0)
+      .attr("x", -150)
+      .attr("dy", "-2.8em")
+      .attr("transform", "rotate(-90)")
+      .text("Covid Cases");
     })
