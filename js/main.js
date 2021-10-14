@@ -201,8 +201,8 @@ function update(Variables) {
       })
       .on('mousemove', function (e, d) {
         const [x, y] = d3.pointer(e);
-        tooltip2.style("left", (x) + 50 + "px")
-        .style("top", (y) - 800 + "px");
+        tooltip2.style("left", (x) + 60 + "px")
+        .style("top", (y) - 1400 + "px");
         tooltip_name2.text(d3.select(this.parentNode).datum().Country);
         tooltip_pop1.text(`Cases: ${d3.select(this.parentNode).datum().Cases}`);
         tooltip_pop2.text(`Deaths: ${d3.select(this.parentNode).datum().Deaths}`);
